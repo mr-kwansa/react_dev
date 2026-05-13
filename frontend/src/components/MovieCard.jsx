@@ -1,10 +1,11 @@
+import '../App.css'
 function MovieCard({ movie }) {
 
     function FavoriteClickHandler() {
         // Implement favorite functionality here
     }
   return (
-    <div className="movie-card">
+    <div className="movie-card" class="bg-blue-800 rounded-lg shadow-md">
         <div className="movie-poster">
             <img src={movie.posterUrl} alt={`${movie.title} Poster`} className="poster-image" />
         </div>

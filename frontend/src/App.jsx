@@ -2,21 +2,22 @@ import { useState } from 'react'
 import './App.css'
 import MovieCard from './components/Moviecard'
 import Home from './pages/Home'
+import Favorite from './pages/Favorite'
+import { Routes,Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
 function App() {
 
   return (
-    <div>
-
-      <Home />
-
-      {/* <MovieCard movie={{title: "Albert Film" , releaseDate: "2022-01-01", rating: 8.5}} />
-      <MovieCard movie={{title: "Albert Film" , releaseDate: "2022-01-01", rating: 8.5}} />
-      <MovieCard movie={{title: "Albert Film" , releaseDate: "2022-01-01", rating: 8.5}} />
-      <MovieCard movie={{title: "Albert Film" , releaseDate: "2022-01-01", rating: 8.5}} /> */}
-
-
-
+    <div className="App">
+      <Navbar />
+       <main className='main-content' class="md:ml-64">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/favorite' element={<Favorite />} />
+        </Routes>
+      </main>
     </div>
+   
   )
 }
 export default App
