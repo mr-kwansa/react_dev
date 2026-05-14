@@ -36,12 +36,12 @@ function Navbar() {
         ))}
       </nav>
 
-      <div className="mt-10 rounded-3xl border border-slate-800 bg-slate-900/80 p-4">
+      {/* <div className="mt-10 rounded-3xl border border-slate-800 bg-slate-900/80 p-4">
         <p className="text-sm font-semibold text-slate-200">Need inspiration?</p>
         <p className="mt-2 text-sm text-slate-400">
           Use the sidebar to jump between movie sections and keep the UI visible while you browse.
         </p>
-      </div>
+      </div> */}
     </aside>
   )
 }
