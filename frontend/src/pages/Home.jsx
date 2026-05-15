@@ -1,7 +1,9 @@
+import React, { use } from 'react'
 import MovieCard from '../components/MovieCard'
 import '../App.css'
+import { fetchMovies } from '../services/api'
+import { searchMovies } from '../services/api'
 import { useEffect, useState } from 'react'
-import { fetchMovies, searchMovies } from '../services/api'
 
 
  function Home() {
@@ -11,17 +13,12 @@ import { fetchMovies, searchMovies } from '../services/api'
     const [movies, setMovies] = useState([])
 
 
-    const loadPopularMovies = async () => {
-        const moviesData = await fetchMovies()
-        setMovies(moviesData)
-    }
-
     useEffect(() => {
         const getMovies = async () => {
             const moviesData = await fetchMovies()
             setMovies(moviesData)
+            // console.log(moviesData)
         }
-
         getMovies()
     }, [])
     // 
@@ -29,17 +26,19 @@ import { fetchMovies, searchMovies } from '../services/api'
     const searchInMovies = async (e) => {
         e.preventDefault()
 
-        const query = searchTerm.trim()
-
-        if (!query) {
-            loadPopularMovies()
-            return
+        if (!searchTerm.trim()) {
+            const moviesData = await fetchMovies()
+            setMovies(moviesData)
+            return  
         }
+        
     
             try {
 
-                const searchresults = await searchMovies(query)
+                const searchresults = await searchMovies(searchTerm)
                 setMovies(searchresults)
+                console.log(searchTerm)
+                console.log(searchresults)
             }
             catch (error) {
                 console.error('Error searching movies:', error)
@@ -55,7 +54,6 @@ import { fetchMovies, searchMovies } from '../services/api'
         {/*  */}
         {/*  */}
         <form
-            onSubmit={searchInMovies}
             className="mx-auto flex w-full max-w-3xl 
             items-center gap-3 rounded-3xl border border-slate-200 
             bg-white/95 p-3 shadow-lg shadow-slate-200/70 backdrop-blur"
@@ -71,6 +69,7 @@ import { fetchMovies, searchMovies } from '../services/api'
             onChange={(e) => setSearchTerm(e.target.value)} />
             <button
             type='submit'
+            onClick={searchInMovies}
             className="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-sky-500 focus:outline-none focus:ring-4 focus:ring-sky-100"
             >Search</button>
         </form>
@@ -79,9 +78,11 @@ import { fetchMovies, searchMovies } from '../services/api'
         <div
         className="grid gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
-        {movies.map(movie => (
+        {movies
+        .map(movie => ( 
             <MovieCard movie={movie} key={movie.id} />
-        ))}
+        ))
+        }
         </div>
         {/*  */}
         {/*  */}
